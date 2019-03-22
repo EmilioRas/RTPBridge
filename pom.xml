@@ -1,0 +1,101 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>RTPBridge</groupId>
+  <artifactId>RTPBridge</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+  <name>RTPBridge</name>
+  <!-- <url>http://maven.apache.org</url>  -->
+  <properties>
+	<jdk.version>1.8</jdk.version>
+	<junit.version>3.8.1</junit.version>
+	<log4j.version>1.2.12</log4j.version>
+  </properties>
+  <build>
+    <sourceDirectory>src</sourceDirectory>
+    <finalName>RTPBridge</finalName>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.3</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+      <plugin>
+		<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-jar-plugin</artifactId>
+			<version>2.4</version>
+				<configuration>
+				  <!-- DO NOT include log4j.properties file in your Jar -->
+				  <!-- DO NOT include log4j.xml file in your Jar -->
+				  <excludes>
+					<exclude>**/log4j.properties</exclude>
+					<exclude>**/log4j.xml</exclude>
+				  </excludes>
+				  <executions>
+				  <execution>
+					<id>jar-file</id>
+					<phase>package</phase>
+					<goals>
+						<goal>make-jar</goal>
+					</goals>
+					<configuration>
+					  <!-- exclude junit, we need runtime dependency only -->
+					  <includeScope>runtime</includeScope>
+					  <outputDirectory>${project.build.directory}/dependency-jars/</outputDirectory>
+					</configuration>
+				  </execution>
+				</executions>
+				  <archive>
+					<manifest>
+						<!-- Jar file entry point -->
+						<mainClass>main.RTP</mainClass>
+					</manifest>
+				  </archive>
+				</configuration>
+			</plugin>
+			<!-- Copy project dependency -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.5.1</version>
+				<executions>
+				  <execution>
+					<id>copy-dependencies</id>
+					<phase>package</phase>
+					<goals>
+						<goal>copy-dependencies</goal>
+					</goals>
+					<configuration>
+					  <!-- exclude junit, we need runtime dependency only -->
+					  <includeScope>runtime</includeScope>
+					  <outputDirectory>${project.build.directory}/dependency-jars/</outputDirectory>
+					</configuration>
+				  </execution>
+				</executions>
+			</plugin>
+    </plugins>
+  </build>
+  
+  <dependencies>
+  	<!-- https://mvnrepository.com/artifact/junit/junit -->
+	<dependency>
+	    <groupId>junit</groupId>
+	    <artifactId>junit</artifactId>
+	    <version>4.12</version>
+	    <scope>test</scope>
+	</dependency>
+	
+	<!-- https://mvnrepository.com/artifact/org.hamcrest/hamcrest-core -->
+	<dependency>
+	    <groupId>org.hamcrest</groupId>
+	    <artifactId>hamcrest-core</artifactId>
+	    <version>2.1</version>
+	    <scope>test</scope>
+	</dependency>
+	
+  	
+  </dependencies>
+</project>
