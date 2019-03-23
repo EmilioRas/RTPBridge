@@ -1,11 +1,11 @@
-package rtp.client;
+package  rtp.client;
 
 import java.net.DatagramPacket;
 
-import main.RTPServerLog;
-import rtp.HeaderFormat;
-import rtp.RTPHeaderException;
-import rules.RTPHeader;
+import  start.RTPServerLog;
+import  rtp.HeaderFormat;
+import  rtp.RTPHeaderException;
+import  rules.RTPHeader;
 
 public class RTPDataClient extends HeaderFormat implements RTPHeader{
 

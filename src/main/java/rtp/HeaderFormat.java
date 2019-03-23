@@ -1,11 +1,11 @@
-package rtp;
+package  rtp;
 
 import java.net.DatagramPacket;
 import java.util.ArrayList;
 import java.util.List;
 
-import main.RTPServerLog;
-import rules.RTPHeader;
+import  start.RTPServerLog;
+import  rules.RTPHeader;
 
 public abstract class HeaderFormat {
 
@@ -221,7 +221,7 @@ public abstract class HeaderFormat {
 	* Used by the receiver to play back the received samples at appropriate time and interval.
 	* When several media streams are present, the timestamps may be independent in each stream.
 	* The granularity of the timing is application specific.
-	* For example, an audio application that samples data once every 125 µs (8 kHz, a common sample rate in digital telephony) would use that value as its clock resolution. 
+	* For example, an audio application that samples data once every 125 ï¿½s (8 kHz, a common sample rate in digital telephony) would use that value as its clock resolution. 
 	* Video streams typically use a 90 kHz clock. 
 	* The clock granularity is one of the details that is specified in the RTP profile for an application
 	*/
@@ -319,7 +319,7 @@ public abstract class HeaderFormat {
 	}
 
 	/**
-	* indica se è presente un extension header
+	* indica se ï¿½ presente un extension header
 	*/
 	public boolean isExtensionHeader() {
 		return extensionHeader;

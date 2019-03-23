@@ -2,9 +2,9 @@ package rtp.server;
 
 import java.net.DatagramPacket;
 
-import main.RTPServerLog;
-import rtp.HeaderFormat;
-import rtp.RTPHeaderException;
+import  start.RTPServerLog;
+import  rtp.HeaderFormat;
+import  rtp.RTPHeaderException;
 import rules.RTPHeader;
 
 public class RTPDataServer extends HeaderFormat implements RTPHeader{
@@ -19,7 +19,7 @@ public class RTPDataServer extends HeaderFormat implements RTPHeader{
 	protected byte[] content;
 
 	@Override
-	public void setPacket(DatagramPacket packet) throws RTPHeaderException{
+	public void setPacket(DatagramPacket packet) throws RTPHeaderException {
 		this.packet = packet;
 		if (this.packet != null) {
 			RTPServerLog.log("\t Packet is not null. Setting this on server...");

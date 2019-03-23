@@ -28,7 +28,7 @@ public class RTPServer extends DatagramSocket{
 	 * @param type at now olny false for ipv4
 	 * @return
 	 */
-	public static InetAddress getInet(String ip, boolean type) throws RTPAddressException{
+	public static InetAddress getInet(String ip, boolean type) throws RTPAddressException {
 		if (!type && ip.split("\\.").length == 4){
 			String[] ip4 = ip.split("\\.");
 			try {

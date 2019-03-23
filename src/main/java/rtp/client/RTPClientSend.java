@@ -1,12 +1,10 @@
 package rtp.client;
 
 import java.io.IOException;
-import java.net.DatagramPacket;
 import java.net.InetAddress;
-
-import main.RTPServerLog;
 import rtp.server.RTPServer;
-import rtp.server.RTPDataServer;
+import start.RTPServerLog;
+
 
 public class RTPClientSend extends RTPServer implements Runnable{
 

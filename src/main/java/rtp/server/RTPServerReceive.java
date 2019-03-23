@@ -1,10 +1,10 @@
-package rtp.server;
+package  rtp.server;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 
-import main.RTPServerLog;
+import  start.RTPServerLog;
 
 public class RTPServerReceive extends RTPServer implements Runnable{
 

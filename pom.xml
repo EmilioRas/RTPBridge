@@ -12,7 +12,7 @@
 	<log4j.version>1.2.12</log4j.version>
   </properties>
   <build>
-    <sourceDirectory>src</sourceDirectory>
+    <sourceDirectory>src/main/java</sourceDirectory>
     <finalName>RTPBridge</finalName>
     <plugins>
       <plugin>
@@ -34,27 +34,27 @@
 					<exclude>**/log4j.properties</exclude>
 					<exclude>**/log4j.xml</exclude>
 				  </excludes>
-				  <executions>
-				  <execution>
-					<id>jar-file</id>
-					<phase>package</phase>
-					<goals>
-						<goal>make-jar</goal>
-					</goals>
-					<configuration>
-					  <!-- exclude junit, we need runtime dependency only -->
-					  <includeScope>runtime</includeScope>
-					  <outputDirectory>${project.build.directory}/dependency-jars/</outputDirectory>
-					</configuration>
-				  </execution>
-				</executions>
+
 				  <archive>
 					<manifest>
 						<!-- Jar file entry point -->
-						<mainClass>main.RTP</mainClass>
+						<mainClass>start.RTP</mainClass>
 					</manifest>
 				  </archive>
 				</configuration>
+			  <executions>
+				  <execution>
+					  <id>jar-file</id>
+					  <phase>package</phase>
+					  <goals>
+						  <goal>jar</goal>
+					  </goals>
+					  <configuration>
+
+						  <outputDirectory>${project.build.directory}/dependency-jars/</outputDirectory>
+					  </configuration>
+				  </execution>
+			  </executions>
 			</plugin>
 			<!-- Copy project dependency -->
 			<plugin>
