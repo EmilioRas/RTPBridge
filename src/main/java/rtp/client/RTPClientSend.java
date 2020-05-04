@@ -31,8 +31,6 @@ public class RTPClientSend extends RTPServer implements Runnable{
 	public void run() {
 		try{
 			synchronized (this.dataClient) {
-				this.dataClient.getPacket().setAddress(address);
-				this.dataClient.getPacket().setPort(port);
 				if (this.dataClient.getPacket() != null) {
 					this.send(this.dataClient.getPacket());
 					RTPServerLog.log("\t New packets ,address to:"+address.getHostName()+" | port: "+port+" ...");
@@ -44,7 +42,7 @@ public class RTPClientSend extends RTPServer implements Runnable{
 		} catch (Exception e){
 			RTPServerLog.log(e.getMessage());
 		} finally {
-			this.close();
+			RTPServerLog.log("End to send...");
 		}
 	}
 

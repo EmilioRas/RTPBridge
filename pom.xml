@@ -5,12 +5,6 @@
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>RTPBridge</name>
-  <!-- <url>http://maven.apache.org</url>  -->
-  <properties>
-	<jdk.version>1.8</jdk.version>
-	<junit.version>3.8.1</junit.version>
-	<log4j.version>1.2.12</log4j.version>
-  </properties>
   <build>
     <sourceDirectory>src/main/java</sourceDirectory>
     <finalName>RTPBridge</finalName>
@@ -28,13 +22,6 @@
 			<artifactId>maven-jar-plugin</artifactId>
 			<version>2.4</version>
 				<configuration>
-				  <!-- DO NOT include log4j.properties file in your Jar -->
-				  <!-- DO NOT include log4j.xml file in your Jar -->
-				  <excludes>
-					<exclude>**/log4j.properties</exclude>
-					<exclude>**/log4j.xml</exclude>
-				  </excludes>
-
 				  <archive>
 					<manifest>
 						<!-- Jar file entry point -->
@@ -50,7 +37,6 @@
 						  <goal>jar</goal>
 					  </goals>
 					  <configuration>
-
 						  <outputDirectory>${project.build.directory}/dependency-jars/</outputDirectory>
 					  </configuration>
 				  </execution>
@@ -80,22 +66,6 @@
   </build>
   
   <dependencies>
-  	<!-- https://mvnrepository.com/artifact/junit/junit -->
-	<dependency>
-	    <groupId>junit</groupId>
-	    <artifactId>junit</artifactId>
-	    <version>4.12</version>
-	    <scope>test</scope>
-	</dependency>
-	
-	<!-- https://mvnrepository.com/artifact/org.hamcrest/hamcrest-core -->
-	<dependency>
-	    <groupId>org.hamcrest</groupId>
-	    <artifactId>hamcrest-core</artifactId>
-	    <version>2.1</version>
-	    <scope>test</scope>
-	</dependency>
-	
-  	
+
   </dependencies>
 </project>

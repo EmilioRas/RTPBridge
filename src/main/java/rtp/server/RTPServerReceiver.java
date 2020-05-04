@@ -6,18 +6,18 @@ import java.net.InetAddress;
 
 import  start.RTPServerLog;
 
-public class RTPServerReceive extends RTPServer implements Runnable{
+public class RTPServerReceiver extends RTPServer implements Runnable{
 
 	protected RTPDataServer dataServer;
 
-	public RTPServerReceive(int port) throws IOException{
+	public RTPServerReceiver(int port) throws IOException{
 		super(port);
 //		super.setReceiveBufferSize(256);
 		RTPServerLog.log("Receiver datagram listen to : "+ this.getLocalAddress() +" | port : "+ this.getLocalPort());
 		this.dataServer = new RTPDataServer();		
 	}
 	
-	public RTPServerReceive(int port,InetAddress laddr) throws IOException{
+	public RTPServerReceiver(int port, InetAddress laddr) throws IOException{
 		super(port,laddr);
 //		super.setReceiveBufferSize(256);
 		RTPServerLog.log("Receiver datagram listen to : " + this.getLocalAddress() +" | port : "+ this.getLocalPort());
@@ -43,16 +43,17 @@ public class RTPServerReceive extends RTPServer implements Runnable{
 					RTPServerLog.log("\t\t data length:" + this.dataServer.getPacket().getLength());
 					this.dataServer.setPacket(data);
 					RTPServerLog.log("\t\t Packet in data rtp server...");
-					this.dataServer.notify();
+
 				} else {
 					RTPServerLog.log("\t data packet received is null");
+
 				}
+				this.dataServer.notify();
 			}
 			
 		} catch (Exception e){
 			RTPServerLog.log(e.getMessage());
 		} finally {
-			this.close();
 			RTPServerLog.log("Return to ...");
 		}
 	}
