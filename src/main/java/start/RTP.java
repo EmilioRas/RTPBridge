@@ -33,11 +33,11 @@ public class RTP{
 					InetAddress dataAddress = null;
 					int dataPort = -1;
 					while (myRecSize < 0 || RTP.receivedNum < myRecSize) {
-						if (args[1] != null && args[1].equals("local")) {
-							receiver = new RTPServerReceiver(Integer.parseInt(args[3]));
+						if (args[0] != null && args[0].equals("local")) {
+							receiver = new RTPServerReceiver(Integer.parseInt(args[2]));
 						} else {
-							receiver = new RTPServerReceiver(Integer.parseInt(args[3]),
-									RTPServerReceiver.getInet(args[1], false));
+							receiver = new RTPServerReceiver(Integer.parseInt(args[2]),
+									RTPServerReceiver.getInet(args[0], false));
 						}
 
 						RTPServerLog.log("Receiver send buffer size :" + receiver.getSendBufferSize());
@@ -64,11 +64,11 @@ public class RTP{
 				//end receiver
 
 				//sender
-						if (args[2] != null && args[2].equals("local")) {
-							sender = new RTPClientSend(Integer.parseInt(args[4]));
+						if (args[1] != null && args[1].equals("local")) {
+							sender = new RTPClientSend(Integer.parseInt(args[3]));
 						} else {
-							sender = new RTPClientSend(Integer.parseInt(args[4]),
-									RTPClientSend.getInet(args[2], false));
+							sender = new RTPClientSend(Integer.parseInt(args[3]),
+									RTPClientSend.getInet(args[1], false));
 						}
 						Thread tPlay = new Thread(sender);
 						RTPServerLog.log("Start RTP Sender ...");
