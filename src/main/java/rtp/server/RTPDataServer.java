@@ -18,6 +18,10 @@ public class RTPDataServer extends HeaderFormat implements RTPHeader{
 	
 	protected byte[] content;
 
+	public void setAndByPassPacket(DatagramPacket packet){
+		this.packet = packet;
+	}
+
 	@Override
 	public void setPacket(DatagramPacket packet) throws RTPHeaderException {
 		this.packet = packet;

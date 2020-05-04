@@ -37,11 +37,16 @@ public class RTPServerReceiver extends RTPServer implements Runnable{
 				this.receive(data);
 				RTPServerLog.log("\t We have a new packet...");
 				if (data != null) {
-					RTPServerLog.log("\t\t Packets received!!! from address:"+this.dataServer.getPacket().getAddress().getHostAddress()+
+
+					if (this.dataServer.getPacket() != null && this.dataServer.getPacket().getAddress() != null &&
+							this.dataServer.getPacket().getAddress().getHostAddress() != null)
+						RTPServerLog.log("\t\t Packets received!!! from address:"+this.dataServer.getPacket().getAddress().getHostAddress()+
 							" | port: "+this.dataServer.getPacket().getPort());
 					RTPServerLog.log("\t\t New packets data... ");
-					RTPServerLog.log("\t\t data length:" + this.dataServer.getPacket().getLength());
-					this.dataServer.setPacket(data);
+					if (this.dataServer.getPacket() != null )
+						RTPServerLog.log("\t\t data length:" + this.dataServer.getPacket().getLength());
+					//this.dataServer.setPacket(data);
+					this.dataServer.setAndByPassPacket(data);
 					RTPServerLog.log("\t\t Packet in data rtp server...");
 
 				} else {

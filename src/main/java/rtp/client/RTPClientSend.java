@@ -32,10 +32,17 @@ public class RTPClientSend extends RTPServer implements Runnable{
 		try{
 			synchronized (this.dataClient) {
 				if (this.dataClient.getPacket() != null) {
-					this.send(this.dataClient.getPacket());
-					RTPServerLog.log("\t New packets ,address to:"+address.getHostName()+" | port: "+port+" ...");
+					if (address != null && address.getHostName() != null)
+						RTPServerLog.log("\t New packets ,address to:"+address.getHostName()+" | port: "+port+" ...");
+					if (address != null && address.getHostName() != null &&
+						!address.getHostAddress().equals(this.dataClient.getPacket().getAddress().getHostAddress())
+						&& port != this.dataClient.getPacket().getPort())
+							this.send(this.dataClient.getPacket());
+					else
+						RTPServerLog.log("\t cannot start continue bridge for this pkg... skip!");
 				} else {
-					RTPServerLog.log("\t Cannot send new packets null to: "+address.getHostName()+" | port: "+port+"!!!");
+					if (address != null && address.getHostName() != null)
+						RTPServerLog.log("\t Cannot send new packets null to: "+address.getHostName()+" | port: "+port+"!!!");
 				}
 				this.dataClient.notify();
 			}		
