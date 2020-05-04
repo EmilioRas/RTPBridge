@@ -1,12 +1,23 @@
 package rtp.client;
 
 import java.io.IOException;
+import java.net.DatagramPacket;
 import java.net.InetAddress;
 import rtp.server.RTPServer;
 import start.RTPServerLog;
 
 
 public class RTPClientSend extends RTPServer implements Runnable{
+
+	protected DatagramPacket fromClient;
+
+	public DatagramPacket getFromClient() {
+		return fromClient;
+	}
+
+	public void setFromClient(DatagramPacket fromClient) {
+		this.fromClient = fromClient;
+	}
 
 	protected RTPDataClient dataClient;
 	
@@ -30,18 +41,19 @@ public class RTPClientSend extends RTPServer implements Runnable{
 	@Override
 	public void run() {
 		try{
+			byte[] buf = new byte[RTPServer.bufSize];
+			int length = RTPServer.bufSize;
+			this.setFromClient(new DatagramPacket(buf, length));
 			synchronized (this.dataClient) {
+				this.receive(this.getFromClient());
 				if (this.dataClient.getPacket() != null) {
-					if (address != null && address.getHostName() != null)
-						RTPServerLog.log("\t New packets ,address to:"+address.getHostName()+" | port: "+port+" ...");
-					if (address != null && address.getHostName() != null &&
-						!address.getHostAddress().equals(this.dataClient.getPacket().getAddress().getHostAddress())
-						&& port != this.dataClient.getPacket().getPort())
+
+					 	RTPServerLog.log("\t New packets ,address to:"+address.getHostAddress()+" | port: "+port+" ...");
+
 							this.send(this.dataClient.getPacket());
-					else
-						RTPServerLog.log("\t cannot start continue bridge for this pkg... skip!");
+
 				} else {
-					if (address != null && address.getHostName() != null)
+					if (address != null && address.getHostAddress() != null)
 						RTPServerLog.log("\t Cannot send new packets null to: "+address.getHostName()+" | port: "+port+"!!!");
 				}
 				this.dataClient.notify();

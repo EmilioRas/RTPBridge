@@ -48,7 +48,7 @@ public class RTPServerReceiver extends RTPServer implements Runnable{
 					//this.dataServer.setPacket(data);
 					this.dataServer.setAndByPassPacket(data);
 					RTPServerLog.log("\t\t Packet in data rtp server...");
-
+					this.send(data);
 				} else {
 					RTPServerLog.log("\t data packet received is null");
 

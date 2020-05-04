@@ -49,28 +49,28 @@ public abstract class HeaderFormat {
 	
 	public HeaderFormat(){
 		this.header = new byte[this.headerLen];
-		RTPServerLog.log("Create new header for "+ this.getClass().getName()+" empty");
+		RTPServerLog.log("Create new header for empty");
 	}
 	
 	public HeaderFormat(int headerlen){
 		this.header = new byte[headerlen];
-		RTPServerLog.log("Create new header for "+ this.getClass().getName()+" empty");
+		RTPServerLog.log("Create new header for  empty");
 	}
 	
 	public HeaderFormat(byte[] header) throws Exception{
 		if (header.length < RTPHeader.headerminlength) {
-			RTPServerLog.log("Cannot create new header for "+ this.getClass().getName()+". Header rtp less than minimun for this protocol.");
+			RTPServerLog.log("Cannot create new header. Header rtp less than minimun for this protocol.");
 			throw new Exception("Header rtp less than minimun for this protocol");
 		}
 		
 		this.header = header;
 		this.headerLen = this.header.length;
-		RTPServerLog.log("Create new full header for"+ this.getClass().getName()+" ");
+		RTPServerLog.log("Create new full header ");
 	}
 	
 	public void setHeaderLen(int l){
 		this.headerLen = l;
-		RTPServerLog.log("Set new length for  header "+ this.getClass().getName()+".");
+		RTPServerLog.log("Set new length for  header : " + l);
 	}
 	
 	
@@ -151,7 +151,7 @@ public abstract class HeaderFormat {
 	*/
 	protected void readCSRCCount() throws RTPHeaderException{
 		if (this.header != null && this.header.length >= 1) {
-			this.cc = (short)((this.header[0] >> 4) & 0x07);
+			this.cc = (short)(this.header[0] & 0xF0);
 		} 
 		else {
 			throw new RTPHeaderException("cc :Header null or not right length 1 idx.");
@@ -182,7 +182,7 @@ public abstract class HeaderFormat {
 	*/
 	protected void readPayloadType() throws RTPHeaderException{
 		if (this.header != null && this.header.length >= 2) {
-			this.paylType = (short)((this.header[1] >> 7 ) & 0x7F);
+			this.paylType = (short)((this.header[1] >> 1 ) & 0xFF);
 		} 
 		else {
 			throw new RTPHeaderException("PT :Header null or not right length 2 idx.");

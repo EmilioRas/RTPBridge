@@ -2,10 +2,13 @@ package start;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.net.DatagramPacket;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 
 import rtp.client.RTPClientSend;
 
+import rtp.server.RTPServer;
 import rtp.server.RTPServerReceiver;
 
 public class RTP{
@@ -13,11 +16,19 @@ public class RTP{
 	public static int receivedNum = 0;
 
 	public static void main(String[] args){
-		if (args.length >= 5){
+		if (args.length >= 6){
+
+
 			try {
 				File logFile = new File(args[4]+File.separatorChar+"RTPLog.log");
 				RTPServerLog.setLogFile(logFile);
 				RTPServerLog.setInlogFile(new FileOutputStream(logFile));
+				RTPServerLog.log(args[0]);
+				RTPServerLog.log(args[1]);
+				RTPServerLog.log(args[2]);
+				RTPServerLog.log(args[3]);
+				RTPServerLog.log(args[4]);
+				RTPServerLog.log(args[5]);
 				RTPServerReceiver receiver = null;
 				RTPClientSend sender = null;		
 				//receiver
@@ -28,17 +39,33 @@ public class RTP{
 						RTPServerLog.log("Not set max Life time!!!");
 					}
 
+					if (args[0] != null && args[0].equals("local")) {
+						receiver = new RTPServerReceiver(Integer.parseInt(args[2]));
+					} else {
+						receiver = new RTPServerReceiver(Integer.parseInt(args[2]),
+								RTPServerReceiver.getInet(args[0], false));
+					}
+
+					if (Integer.parseInt(args[3]) > -1) {
+
+						if (args[1] != null && args[1].equals("local")) {
+							sender = new RTPClientSend(Integer.parseInt(args[3]));
+						} else {
+							sender = new RTPClientSend(Integer.parseInt(args[3]),
+									RTPClientSend.getInet(args[1], false));
+						}
+
+					}
+
+
 					//loop bridge
 					RTPServerLog.log("Start RTP Receiver ...");
 					InetAddress dataAddress = null;
 					int dataPort = -1;
-					while (myRecSize < 0 || RTP.receivedNum < myRecSize) {
-						if (args[0] != null && args[0].equals("local")) {
-							receiver = new RTPServerReceiver(Integer.parseInt(args[2]));
-						} else {
-							receiver = new RTPServerReceiver(Integer.parseInt(args[2]),
-									RTPServerReceiver.getInet(args[0], false));
-						}
+
+
+
+				while (myRecSize < 0 || RTP.receivedNum < myRecSize) {
 
 						RTPServerLog.log("Receiver send buffer size :" + receiver.getSendBufferSize());
 						RTPServerLog.log("Receiver receive buffer size :" + receiver.getReceiveBufferSize());
@@ -51,8 +78,6 @@ public class RTP{
 						synchronized (receiver.getDataServer()) {
 							tRec.start();
 							receiver.getDataServer().wait();
-							dataAddress = receiver.getDataServer().getPacket().getAddress();
-							dataPort = receiver.getDataServer().getPacket().getPort();
 						}
 						
 
@@ -61,27 +86,26 @@ public class RTP{
 						
 						RTPServerLog.log("... waiting ...");
 
-				//end receiver
+					//end receiver
 
-				//sender
-						if (args[1] != null && args[1].equals("local")) {
-							sender = new RTPClientSend(Integer.parseInt(args[3]));
-						} else {
-							sender = new RTPClientSend(Integer.parseInt(args[3]),
-									RTPClientSend.getInet(args[1], false));
-						}
+					//sender
+
+					if (Integer.parseInt(args[3]) > -1) {
 						Thread tPlay = new Thread(sender);
 						RTPServerLog.log("Start RTP Sender ...");
 						synchronized (sender.getDataClient()) {
-							if (dataAddress != null && dataPort != -1){
-								sender.getDataClient().setPacket(receiver.getDataServer().getPacket());
-								tPlay.start();
-								sender.getDataClient().wait();
-							} else {
-								RTPServerLog.log("Nothing ... It cannot found a valid datagram packet address to send ! ");
-							}
+
+							sender.setAddress(dataAddress);
+							sender.setPort(dataPort);
+
+							sender.getDataClient().setPacket(receiver.getDataServer().getPacket());
+
+							tPlay.start();
+							sender.getDataClient().wait();
+
 
 						}
+					}
 				//end sender
 					}
 					//end loop bridge
