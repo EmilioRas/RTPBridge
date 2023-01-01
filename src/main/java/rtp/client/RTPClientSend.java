@@ -41,9 +41,7 @@ public class RTPClientSend extends RTPServer implements Runnable{
 	@Override
 	public void run() {
 		try{
-			byte[] buf = new byte[RTPServer.bufSize];
-			int length = RTPServer.bufSize;
-			this.setFromClient(new DatagramPacket(buf, length));
+
 			synchronized (this.dataClient) {
 				this.receive(this.getFromClient());
 				if (this.dataClient.getPacket() != null) {

@@ -83,7 +83,7 @@ public abstract class HeaderFormat {
 	public abstract void setPacket(DatagramPacket packet) throws RTPHeaderException;
 	
 	protected void genericReadAllFromHeader() throws RTPHeaderException {
-		if (this.header != null && this.header.length == this.headerLen) {
+		if (this.header != null && this.header.length >= RTPHeader.headerminlength) {
 			this.readVersion();
 			this.readPadding();
 			this.readExtention();
@@ -263,6 +263,7 @@ public abstract class HeaderFormat {
 		this.contribSrc = new ArrayList<Integer>(this.cc);
 		for (int c = 0; c < this.cc ; c++) {
 			if (this.header != null && this.header.length >= (15 + c * 4)) {
+				this.contribSrc.add(Integer.MAX_VALUE);
 				this.contribSrc.set(c,(((int)(this.header[15 + c * 4]  & 0xFF)) * 256^4) + 
 						(((int)(this.header[14 + c * 4]  & 0xFF)) * 256^3) + 
 						(((int)(this.header[13 + c * 4]  & 0xFF)) * 256^2) + 
@@ -271,7 +272,8 @@ public abstract class HeaderFormat {
 				RTPServerLog.log("ContributingSrc in idx "+c+ " is " + this.contribSrc.get(c));
 			} 
 			else {
-				throw new RTPHeaderException("Contributing Src :Header null or not right length "+(15 + c * 4)+" idx.");
+				//throw new RTPHeaderException("Contributing Src :Header null or not right length "+(15 + c * 4)+" idx.");
+				return;
 			}
 		}
 		
@@ -319,7 +321,7 @@ public abstract class HeaderFormat {
 	}
 
 	/**
-	* indica se � presente un extension header
+	* indica se  presente un extension header
 	*/
 	public boolean isExtensionHeader() {
 		return extensionHeader;

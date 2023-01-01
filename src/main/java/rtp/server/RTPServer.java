@@ -1,5 +1,7 @@
 package rtp.server;
 
+import java.io.IOException;
+import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
@@ -8,18 +10,36 @@ import rtp.RTPAddressException;
 
 public class RTPServer extends DatagramSocket{
 
-	public static int bufSize = 1024;
+	protected static String nInterface;
+
+	public static void setnInterface(String nInterface) {
+		RTPServer.nInterface = nInterface;
+	}
+
+	public static String getnInterface() {
+		return nInterface;
+	}
+
+
+
+
 	
 	public RTPServer(int port, InetAddress laddr) throws SocketException {
 		super(port, laddr);
-		this.setSendBufferSize(RTPServer.bufSize);
-		this.setReceiveBufferSize(RTPServer.bufSize);
+
+		this.setBroadcast(true);
+
 	}
 	
 	public RTPServer(int port) throws SocketException {
 		super(port);
-		this.setSendBufferSize(RTPServer.bufSize);
-		this.setReceiveBufferSize(RTPServer.bufSize);
+
+	}
+
+
+	@Override
+	public void receive(DatagramPacket data) throws IOException {
+		super.receive(data);
 	}
 
 	/**
@@ -45,5 +65,5 @@ public class RTPServer extends DatagramSocket{
 		} else throw new RTPAddressException("Not input ipv4 address");
 	}
 	
-	
+
 }
