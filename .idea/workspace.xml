@@ -6,24 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="85afc27c-e4ba-4926-bb60-f050f0150bac" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RTPBridge.iml" beforeDir="false" afterPath="$PROJECT_DIR$/RTPBridge.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/RTPBridge.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/RTPBridge.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/rtp/HeaderFormat.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/rtp/HeaderFormat.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/rtp/client/RTPClientSend.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/rtp/client/RTPClientSend.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/rtp/server/RTPDataServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/rtp/server/RTPDataServer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/rtp/server/RTPServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/rtp/server/RTPServer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/rtp/server/RTPServerReceiver.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/rtp/server/RTPServerReceiver.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/start/RTP.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/start/RTP.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/dependency-jars/RTPBridge.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/HeaderFormatTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/HeaderFormatTest.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-HeaderFormatTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-HeaderFormatTest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/HeaderFormatTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/HeaderFormatTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/rtp/server/RTPServerReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rtp/server/RTPServerReceiver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/start/RTP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/start/RTP.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,6 +63,7 @@
     <option name="width" value="1346" />
     <option name="height" value="688" />
   </component>
+  <component name="ProjectId" id="2JkmGSc6EynPpPBoPkI2VuqAdZW" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -89,7 +75,13 @@
       <pane id="PackagesPane" />
     </panes>
   </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1588624352234" />
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.0" />
@@ -101,6 +93,7 @@
       <command value="mvn clean install" />
     </option>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
