@@ -33,7 +33,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>rtp.start.RTP</mainClass>
+              <mainClass>start.RTP</mainClass>
               <addClasspath>true</addClasspath>
 
             </manifest>

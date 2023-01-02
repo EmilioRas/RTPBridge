@@ -46,9 +46,10 @@ public class RTP{
 
 				}
 
-
-				receiver.setDest(new InetSocketAddress(RTPServer.getInet(args[0], false), Integer.parseInt(args[3])));
-
+				if (args[1].equals("none"))
+					receiver.setDest(new InetSocketAddress(RTPServer.getInet(args[0], false), Integer.parseInt(args[3])));
+				else
+					receiver.setDest(new InetSocketAddress(RTPServer.getInet(args[1], false), Integer.parseInt(args[3])));
 					//loop bridge
 					RTPServerLog.log("Start RTP Receiver ...");
 					InetAddress dataAddress = null;

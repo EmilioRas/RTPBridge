@@ -56,8 +56,8 @@ public class RTPServerReceiver extends RTPServer implements Runnable{
 
 					this.getDataServer().setPacket(data);
 
-					if (this.getDataServer().getPacket() != null ) {
-						RTPServerLog.log("\t\t data length:" + this.getDataServer().getPacket().getData().length);
+					if (this.dataServer.getPacket() != null ) {
+						RTPServerLog.log("\t\t data length:" + this.dataServer.getPacket().getData().length);
 					} else {
 						this.getDataServer().notify();
 						return;
@@ -66,7 +66,7 @@ public class RTPServerReceiver extends RTPServer implements Runnable{
 					RTPServerLog.log("\t\t Packet in data rtp lx server... start to send");
 					RTPServerLog.log("\t\t Destinat Address is : " + this.getDest().getAddress());
 
-					DatagramPacket hi = new DatagramPacket(this.getDataServer().getPacket().getData(),this.getDataServer().getPacket().getData().length,this.getDest());
+					DatagramPacket hi = new DatagramPacket(this.dataServer.getPacket().getData(),this.dataServer.getPacket().getData().length,this.getDest());
 
 
 
