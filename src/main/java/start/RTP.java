@@ -2,12 +2,9 @@ package start;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.net.DatagramPacket;
+
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
-import java.util.Scanner;
-
-import rtp.client.RTPClientSend;
 
 import rtp.server.RTPServer;
 import rtp.server.RTPServerReceiver;
@@ -18,7 +15,7 @@ public class RTP{
 	public static int receivedNum = 0;
 
 	public static void main(String[] args){
-		if (args.length >= 6){
+		if (args.length >= 5){
 
 
 			try {
@@ -30,14 +27,14 @@ public class RTP{
 				RTPServerLog.log(args[2]);
 				RTPServerLog.log(args[3]);
 				RTPServerLog.log(args[4]);
-				RTPServerLog.log(args[5]);
+
 
 				RTPServerReceiver receiver = null;
 				RTPServerTransmitter sender = null;
 				//receiver
 
 
-				RTPServerReceiver.setnInterface(args[5]);
+
 
 				if (args[0] != null && args[0].equals("local")) {
 					receiver = new RTPServerReceiver(Integer.parseInt(args[2]));
@@ -49,21 +46,7 @@ public class RTP{
 
 
 				receiver.setDest(new InetSocketAddress(RTPServer.getInet(args[0], false), Integer.parseInt(args[3])));
-				if (!args[1].equals("none")){
-					if (Integer.parseInt(args[3]) > -1) {
 
-						if (args[1] != null && args[1].equals("local")) {
-							sender = new RTPServerTransmitter(Integer.parseInt(args[3]));
-						} else {
-							sender = new RTPServerTransmitter(Integer.parseInt(args[3]),
-									RTPServer.getInet(args[1], false));
-						}
-
-
-					}
-
-					sender.setDest(new InetSocketAddress(RTPServer.getInet(args[1], false), Integer.parseInt(args[3])));
-				}
 					//loop bridge
 					RTPServerLog.log("Start RTP Receiver ...");
 					InetAddress dataAddress = null;
@@ -94,23 +77,7 @@ public class RTP{
 
 					//end receiver
 
-					//sender
-					if (!args[1].equals("none")) {
-						if (Integer.parseInt(args[3]) > -1) {
-							Thread tPlay = new Thread(sender);
-							RTPServerLog.log("Start RTP Sender ...");
-							synchronized (sender.getDataServer()) {
 
-
-								//sender.getDataClient().setPacket(receiver.getDataServer().getPacket());
-
-								tPlay.start();
-								sender.getDataServer().wait();
-								//sender.getDataClient().wait();
-
-							}
-						}
-					}
 				}
 				//end sender
 
@@ -128,7 +95,6 @@ public class RTP{
 			System.out.println("3. PORT for (1)");
 			System.out.println("4. PORT for (2)");
 			System.out.println("5. LOG folder");
-			System.out.println("6. networkinterface");
 			System.exit(0);
 		}
 	}

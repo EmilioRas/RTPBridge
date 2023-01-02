@@ -34,12 +34,10 @@ public class RTPServerReceiver extends RTPServer implements Runnable{
 
 		RTPServerLog.log("Receiver datagram listen to : " + this.getLocalAddress() +" | port : "+ this.getLocalPort());
 		this.dataServer = new RTPDataServer();
-		//this.outgoingIf = NetworkInterface.getByName(RTPServerTransmitter.getnInterface());
-		//this.setOption(StandardSocketOptions.IP_MULTICAST_IF,this.outgoingIf);
+
 
 	}
 
-	private  NetworkInterface outgoingIf;
 
 	@Override
 	public void run() {
@@ -58,8 +56,8 @@ public class RTPServerReceiver extends RTPServer implements Runnable{
 
 					this.getDataServer().setPacket(data);
 
-					if (data != null ) {
-						RTPServerLog.log("\t\t data length:" + data.getLength());
+					if (this.getDataServer().getPacket() != null ) {
+						RTPServerLog.log("\t\t data length:" + this.getDataServer().getPacket().getData().length);
 					} else {
 						this.getDataServer().notify();
 						return;
@@ -68,7 +66,7 @@ public class RTPServerReceiver extends RTPServer implements Runnable{
 					RTPServerLog.log("\t\t Packet in data rtp lx server... start to send");
 					RTPServerLog.log("\t\t Destinat Address is : " + this.getDest().getAddress());
 
-					DatagramPacket hi = new DatagramPacket(data.getData(),data.getData().length,this.getDest());
+					DatagramPacket hi = new DatagramPacket(this.getDataServer().getPacket().getData(),this.getDataServer().getPacket().getData().length,this.getDest());
 
 
 
