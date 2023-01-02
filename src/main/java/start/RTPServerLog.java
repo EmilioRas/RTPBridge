@@ -14,7 +14,13 @@ public class RTPServerLog {
 	private static File logFile;
 
 	private static OutputStream inlogFile;
-	
+
+	public static void setEnable(boolean enable) {
+		RTPServerLog.enable = enable;
+	}
+
+	private static boolean enable;
+
 	public static void logFileClose() throws IOException{
 		RTPServerLog.inlogFile.close();
 	}
@@ -41,8 +47,22 @@ public class RTPServerLog {
 		RTPServerLog.logFile = logFile;
 	}
 
+	public static void logAnyway(String log){
+		System.out.println(log);
+		log = RTPServerLog.cal.getTime().toString()+ " - "+log+"\n";
+		try {
+			RTPServerLog.inlogFile.write(log.getBytes());
+			RTPServerLog.inlogFile.flush();
+
+		} catch (IOException io){
+			System.err.println("unable to write logs");
+		}
+	}
 
 	public static void log(String log){
+		if (!RTPServerLog.enable){
+			return;
+		}
 		System.out.println(log);
 		log = RTPServerLog.cal.getTime().toString()+ " - "+log+"\n";
 		try {
@@ -55,6 +75,9 @@ public class RTPServerLog {
 	}
 	
 	public static void logNoN(String log){
+		if (!RTPServerLog.enable){
+			return;
+		}
 		try {
 			RTPServerLog.inlogFile.write(log.getBytes());
 			RTPServerLog.inlogFile.flush();

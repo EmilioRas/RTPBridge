@@ -276,7 +276,7 @@ public abstract class HeaderFormat {
 	protected void readContributingSrc() throws RTPHeaderException{
 		this.contribSrc = new ArrayList<Integer>(this.cc);
 		for (int c = 0; c < this.cc ; c++) {
-			if (this.header != null && this.header.length >= (15 + c * 4)) {
+			if (this.header != null && this.header.length > (15 + c * 4)) {
 
 				this.contribSrc.add(Integer.MAX_VALUE);
 
@@ -285,7 +285,7 @@ public abstract class HeaderFormat {
 						(((int)(this.header[13 + c * 4]  & 0xFF)) * 256^2) + 
 						((int)(this.header[12 + c * 4]  & 0xFF)));
 				
-				RTPServerLog.log("ContributingSrc in idx "+c+ " is " + this.contribSrc.get(c));
+
 			} 
 			else {
 
