@@ -6,3 +6,4 @@
 3. PORT for (receiver)
 4. PORT to (send)
 5. Logs folder
+6. Logs enable (false/true)

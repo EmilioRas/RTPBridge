@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import rtp.server.RTPServer;
 import rtp.server.RTPServerReceiver;
 import rtp.server.RTPServerTransmitter;
@@ -23,13 +24,16 @@ public class RTP{
 			try {
 				File logFile = new File(args[4] + File.separatorChar + "RTPLog.log");
 				RTPServerLog.setLogFile(logFile);
+				if (args.length >= 6)
+					RTPServerLog.setEnable(Boolean.parseBoolean(args[5]));
 				RTPServerLog.setInlogFile(new FileOutputStream(logFile));
-				RTPServerLog.log(args[0]);
-				RTPServerLog.log(args[1]);
-				RTPServerLog.log(args[2]);
-				RTPServerLog.log(args[3]);
-				RTPServerLog.log(args[4]);
-
+				RTPServerLog.logAnyway(args[0]);
+				RTPServerLog.logAnyway(args[1]);
+				RTPServerLog.logAnyway(args[2]);
+				RTPServerLog.logAnyway(args[3]);
+				RTPServerLog.logAnyway(args[4]);
+				if (args.length >= 6)
+					RTPServerLog.logAnyway(args[5]);
 
 				RTPServerReceiver receiver = null;
 				RTPServerTransmitter sender = null;
@@ -51,16 +55,16 @@ public class RTP{
 				else
 					receiver.setDest(new InetSocketAddress(RTPServer.getInet(args[1], false), Integer.parseInt(args[3])));
 					//loop bridge
-					RTPServerLog.log("Start RTP Receiver ...");
+					RTPServerLog.logAnyway("Start RTP Receiver ...");
 					InetAddress dataAddress = null;
 					int dataPort = -1;
 
 
-				RTPServerLog.log("Receiver send buffer size :" + receiver.getSendBufferSize());
-				RTPServerLog.log("Receiver receive buffer size :" + receiver.getReceiveBufferSize());
-				RTPServerLog.log("Receiver so timeout :" + receiver.getSoTimeout());
-				RTPServerLog.log("Receiver traffic class :" + receiver.getTrafficClass());
-				RTPServerLog.log("Receiver broadcast :" + receiver.getBroadcast());
+				RTPServerLog.logAnyway("Receiver send buffer size :" + receiver.getSendBufferSize());
+				RTPServerLog.logAnyway("Receiver receive buffer size :" + receiver.getReceiveBufferSize());
+				RTPServerLog.logAnyway("Receiver so timeout :" + receiver.getSoTimeout());
+				RTPServerLog.logAnyway("Receiver traffic class :" + receiver.getTrafficClass());
+				RTPServerLog.logAnyway("Receiver broadcast :" + receiver.getBroadcast());
 
 				while (RTP.receivedNum >= 0) {
 
@@ -98,7 +102,7 @@ public class RTP{
 			System.out.println("3. PORT for (1)");
 			System.out.println("4. PORT for (2)");
 			System.out.println("5. LOG folder");
-
+			System.out.println("6. LOG Enable (false/true)");
 			System.exit(0);
 		}
 	}
