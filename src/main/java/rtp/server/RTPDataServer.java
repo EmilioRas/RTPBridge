@@ -18,6 +18,7 @@ public class RTPDataServer extends HeaderFormat implements RTPHeader{
 	
 	protected byte[] content;
 
+
 	public void setAndByPassPacket(DatagramPacket packet){
 		this.packet = packet;
 	}
@@ -94,6 +95,7 @@ public class RTPDataServer extends HeaderFormat implements RTPHeader{
 			} else {
 				RTPServerLog.log("Sorry! Packet is null");
 			}
+
 		}
 	}
 
@@ -103,7 +105,9 @@ public class RTPDataServer extends HeaderFormat implements RTPHeader{
 	}
 
 	public DatagramPacket getPacket() {
+
 		return this.packet;
+
 	}
 
 	@Override
@@ -115,8 +119,6 @@ public class RTPDataServer extends HeaderFormat implements RTPHeader{
 	public byte[] getData() {
 		return this.content;
 	}
-
-
 
 
 }

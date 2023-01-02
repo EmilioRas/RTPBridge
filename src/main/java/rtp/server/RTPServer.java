@@ -1,7 +1,9 @@
 package rtp.server;
 
+
 import java.io.IOException;
 import java.net.DatagramPacket;
+
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
@@ -29,10 +31,12 @@ public class RTPServer extends DatagramSocket{
 
 		this.setBroadcast(true);
 
+
 	}
 	
 	public RTPServer(int port) throws SocketException {
 		super(port);
+
 
 	}
 
@@ -40,6 +44,7 @@ public class RTPServer extends DatagramSocket{
 	@Override
 	public void receive(DatagramPacket data) throws IOException {
 		super.receive(data);
+
 	}
 
 	/**

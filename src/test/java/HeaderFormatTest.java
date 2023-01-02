@@ -1,7 +1,4 @@
 
-
-
-
 public class HeaderFormatTest {
 
 	private byte[] header;
@@ -15,6 +12,8 @@ public class HeaderFormatTest {
 	public HeaderFormatTest(){
 		this.header = new byte[this.headerLen];
 	}
-	
+
+
+
 
 }

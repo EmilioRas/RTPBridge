@@ -49,28 +49,36 @@ public abstract class HeaderFormat {
 	
 	public HeaderFormat(){
 		this.header = new byte[this.headerLen];
+
 		RTPServerLog.log("Create new header for empty");
-	}
+ 	}
 	
 	public HeaderFormat(int headerlen){
 		this.header = new byte[headerlen];
+
 		RTPServerLog.log("Create new header for  empty");
-	}
+ }
 	
 	public HeaderFormat(byte[] header) throws Exception{
 		if (header.length < RTPHeader.headerminlength) {
+
 			RTPServerLog.log("Cannot create new header. Header rtp less than minimun for this protocol.");
+
 			throw new Exception("Header rtp less than minimun for this protocol");
 		}
 		
 		this.header = header;
 		this.headerLen = this.header.length;
+
 		RTPServerLog.log("Create new full header ");
+
 	}
 	
 	public void setHeaderLen(int l){
 		this.headerLen = l;
+
 		RTPServerLog.log("Set new length for  header : " + l);
+
 	}
 	
 	
@@ -83,7 +91,9 @@ public abstract class HeaderFormat {
 	public abstract void setPacket(DatagramPacket packet) throws RTPHeaderException;
 	
 	protected void genericReadAllFromHeader() throws RTPHeaderException {
+
 		if (this.header != null && this.header.length >= RTPHeader.headerminlength) {
+
 			this.readVersion();
 			this.readPadding();
 			this.readExtention();
@@ -151,7 +161,9 @@ public abstract class HeaderFormat {
 	*/
 	protected void readCSRCCount() throws RTPHeaderException{
 		if (this.header != null && this.header.length >= 1) {
+
 			this.cc = (short)(this.header[0] & 0xF0);
+
 		} 
 		else {
 			throw new RTPHeaderException("cc :Header null or not right length 1 idx.");
@@ -182,7 +194,9 @@ public abstract class HeaderFormat {
 	*/
 	protected void readPayloadType() throws RTPHeaderException{
 		if (this.header != null && this.header.length >= 2) {
+
 			this.paylType = (short)((this.header[1] >> 1 ) & 0xFF);
+
 		} 
 		else {
 			throw new RTPHeaderException("PT :Header null or not right length 2 idx.");
@@ -263,7 +277,9 @@ public abstract class HeaderFormat {
 		this.contribSrc = new ArrayList<Integer>(this.cc);
 		for (int c = 0; c < this.cc ; c++) {
 			if (this.header != null && this.header.length >= (15 + c * 4)) {
+
 				this.contribSrc.add(Integer.MAX_VALUE);
+
 				this.contribSrc.set(c,(((int)(this.header[15 + c * 4]  & 0xFF)) * 256^4) + 
 						(((int)(this.header[14 + c * 4]  & 0xFF)) * 256^3) + 
 						(((int)(this.header[13 + c * 4]  & 0xFF)) * 256^2) + 
@@ -272,8 +288,10 @@ public abstract class HeaderFormat {
 				RTPServerLog.log("ContributingSrc in idx "+c+ " is " + this.contribSrc.get(c));
 			} 
 			else {
+
 				//throw new RTPHeaderException("Contributing Src :Header null or not right length "+(15 + c * 4)+" idx.");
 				return;
+
 			}
 		}
 		
@@ -321,7 +339,9 @@ public abstract class HeaderFormat {
 	}
 
 	/**
+
 	* indica se  presente un extension header
+
 	*/
 	public boolean isExtensionHeader() {
 		return extensionHeader;

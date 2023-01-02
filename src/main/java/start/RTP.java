@@ -10,11 +10,13 @@ import rtp.server.RTPServer;
 import rtp.server.RTPServerReceiver;
 import rtp.server.RTPServerTransmitter;
 
+
 public class RTP{
 	
 	public static int receivedNum = 0;
 
 	public static void main(String[] args){
+
 		if (args.length >= 5){
 
 
@@ -95,6 +97,7 @@ public class RTP{
 			System.out.println("3. PORT for (1)");
 			System.out.println("4. PORT for (2)");
 			System.out.println("5. LOG folder");
+
 			System.exit(0);
 		}
 	}

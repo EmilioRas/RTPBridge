@@ -1,7 +1,9 @@
 package rtp.client;
 
 import java.io.IOException;
+
 import java.net.DatagramPacket;
+
 import java.net.InetAddress;
 import rtp.server.RTPServer;
 import start.RTPServerLog;
@@ -42,6 +44,7 @@ public class RTPClientSend extends RTPServer implements Runnable{
 	public void run() {
 		try{
 
+
 			synchronized (this.dataClient) {
 				this.receive(this.getFromClient());
 				if (this.dataClient.getPacket() != null) {
@@ -53,13 +56,16 @@ public class RTPClientSend extends RTPServer implements Runnable{
 				} else {
 					if (address != null && address.getHostAddress() != null)
 						RTPServerLog.log("\t Cannot send new packets null to: "+address.getHostName()+" | port: "+port+"!!!");
+
 				}
 				this.dataClient.notify();
 			}		
 		} catch (Exception e){
 			RTPServerLog.log(e.getMessage());
 		} finally {
+
 			RTPServerLog.log("End to send...");
+
 		}
 	}
 
