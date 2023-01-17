@@ -50,11 +50,15 @@ public class RTP{
 
 				}
 
-				if (args[1].equals("none"))
+				if (args[1].equals("none") && !args[3].equals("none"))
 					receiver.setDest(new InetSocketAddress(RTPServer.getInet(args[0], false), Integer.parseInt(args[3])));
-				else
+				else if (!args[1].equals("none") && !(args[3].equals("none")))
 					receiver.setDest(new InetSocketAddress(RTPServer.getInet(args[1], false), Integer.parseInt(args[3])));
-					//loop bridge
+				else {
+					RTPServerLog.logAnyway("Cannot set Destination packet ...");
+					System.exit(0);
+				}
+				//loop bridge
 					RTPServerLog.logAnyway("Start RTP Receiver ...");
 					InetAddress dataAddress = null;
 					int dataPort = -1;
