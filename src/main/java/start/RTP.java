@@ -6,7 +6,6 @@ import java.io.FileOutputStream;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import rtp.server.RTPServer;
 import rtp.server.RTPServerReceiver;
 import rtp.server.RTPServerTransmitter;
