@@ -1,8 +1,7 @@
 package  rtp.server;
 
 import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.InetAddress;
+import java.net.*;
 
 import  start.RTPServerLog;
 
@@ -10,50 +9,75 @@ public class RTPServerReceiver extends RTPServer implements Runnable{
 
 	protected RTPDataServer dataServer;
 
+	protected InetSocketAddress dest;
+
+
+
+	public InetSocketAddress getDest() {
+		return dest;
+	}
+
+	public void setDest(InetSocketAddress dest) {
+		this.dest = dest;
+	}
+
 	public RTPServerReceiver(int port) throws IOException{
 		super(port);
-//		super.setReceiveBufferSize(256);
+
 		RTPServerLog.log("Receiver datagram listen to : "+ this.getLocalAddress() +" | port : "+ this.getLocalPort());
-		this.dataServer = new RTPDataServer();		
+		this.dataServer = new RTPDataServer();
+
 	}
 	
 	public RTPServerReceiver(int port, InetAddress laddr) throws IOException{
 		super(port,laddr);
-//		super.setReceiveBufferSize(256);
+
 		RTPServerLog.log("Receiver datagram listen to : " + this.getLocalAddress() +" | port : "+ this.getLocalPort());
-		this.dataServer = new RTPDataServer();		
+		this.dataServer = new RTPDataServer();
+
+
 	}
-	
-	
+
+
 	@Override
 	public void run() {
 		try {
-			RTPServerLog.log("Listen ...");
-			
-			byte[] buf = new byte[RTPServer.bufSize];
-			int length = RTPServer.bufSize;
-			DatagramPacket data = new DatagramPacket(buf, length);
-			synchronized (this.dataServer) {
-				this.receive(data);
-				RTPServerLog.log("\t We have a new packet...");
-				if (data != null) {
+			RTPServerLog.log("Listen left...");
+			byte[] buffer = new byte[10000];
+			DatagramPacket data = new DatagramPacket(buffer,10000);
 
-					if (this.dataServer.getPacket() != null && this.dataServer.getPacket().getAddress() != null &&
-							this.dataServer.getPacket().getAddress().getHostAddress() != null)
-						RTPServerLog.log("\t\t Packets received!!! from address:"+this.dataServer.getPacket().getAddress().getHostAddress()+
-							" | port: "+this.dataServer.getPacket().getPort());
+			synchronized (this.getDataServer()) {
+				this.receive(data);
+
+
+				RTPServerLog.log("\t We have a new packet (lx)...");
+				if (data != null) {
 					RTPServerLog.log("\t\t New packets data... ");
-					if (this.dataServer.getPacket() != null )
-						RTPServerLog.log("\t\t data length:" + this.dataServer.getPacket().getLength());
-					//this.dataServer.setPacket(data);
-					this.dataServer.setAndByPassPacket(data);
-					RTPServerLog.log("\t\t Packet in data rtp server...");
-					this.send(data);
+
+					this.getDataServer().setPacket(data);
+
+					if (this.dataServer.getPacket() != null ) {
+						RTPServerLog.log("\t\t data length:" + this.dataServer.getPacket().getData().length);
+					} else {
+						this.getDataServer().notify();
+						return;
+					}
+
+					RTPServerLog.log("\t\t Packet in data rtp lx server... start to send");
+					RTPServerLog.log("\t\t Destinat Address is : " + this.getDest().getAddress());
+
+					DatagramPacket hi = new DatagramPacket(this.dataServer.getPacket().getData(),this.dataServer.getPacket().getData().length,this.getDest());
+
+
+
+					//this.setTmpPacket(hi);
+					this.send(hi);
+					RTPServerLog.log("\t\t END");
 				} else {
 					RTPServerLog.log("\t data packet received is null");
 
 				}
-				this.dataServer.notify();
+				this.getDataServer().notify();
 			}
 			
 		} catch (Exception e){
@@ -67,9 +91,4 @@ public class RTPServerReceiver extends RTPServer implements Runnable{
 		return dataServer;
 	}
 
-	public void setDataServer(RTPDataServer dataServer) {
-		this.dataServer = dataServer;
-	}
-	
-	
 }
