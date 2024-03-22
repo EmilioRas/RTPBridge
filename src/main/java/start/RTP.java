@@ -39,8 +39,6 @@ public class RTP{
 				//receiver
 
 
-
-
 				if (args[0] != null && args[0].equals("local")) {
 					receiver = new RTPServerReceiver(Integer.parseInt(args[2]));
 				} else {
@@ -49,9 +47,11 @@ public class RTP{
 
 				}
 
-				if (args[1].equals("none") && !args[3].equals("none"))
+				receiver.setByClient(false);
+				if (args[1].equals("none") && !args[3].equals("none")) {
+					receiver.setByClient(true);
 					receiver.setDest(new InetSocketAddress(RTPServer.getInet(args[0], false), Integer.parseInt(args[3])));
-				else if (!args[1].equals("none") && !(args[3].equals("none")))
+				} else if (!args[1].equals("none")  && !(args[3].equals("none")))
 					receiver.setDest(new InetSocketAddress(RTPServer.getInet(args[1], false), Integer.parseInt(args[3])));
 				else {
 					RTPServerLog.logAnyway("Cannot set Destination packet ...");

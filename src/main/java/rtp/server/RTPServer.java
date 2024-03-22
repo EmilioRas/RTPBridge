@@ -47,6 +47,12 @@ public class RTPServer extends DatagramSocket{
 
 	}
 
+	@Override
+	public void send(DatagramPacket data) throws IOException {
+		super.send(data);
+
+	}
+
 	/**
 	 * 
 	 * @param ip

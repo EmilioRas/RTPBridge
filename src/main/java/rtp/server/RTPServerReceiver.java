@@ -11,7 +11,11 @@ public class RTPServerReceiver extends RTPServer implements Runnable{
 
 	protected InetSocketAddress dest;
 
+	protected boolean byClient;
 
+	public void setByClient(boolean byClient) {
+		this.byClient = byClient;
+	}
 
 	public InetSocketAddress getDest() {
 		return dest;
@@ -63,10 +67,15 @@ public class RTPServerReceiver extends RTPServer implements Runnable{
 						return;
 					}
 
+					if (this.byClient){
+						//this.setDest(new InetSocketAddress(this.dataServer.getPacket().getAddress(),  this.dataServer.getPacket().getPort()));
+					}
+
+
 					RTPServerLog.log("\t\t Packet in data rtp lx server... start to send");
 					RTPServerLog.log("\t\t Destinat Address is : " + this.getDest().getAddress());
 
-					DatagramPacket hi = new DatagramPacket(data.getData(),data.getLength(),this.getDest());
+					DatagramPacket hi = new DatagramPacket(this.dataServer.getPacket().getData(),this.dataServer.getPacket().getLength(),this.getDest());
 
 
 
