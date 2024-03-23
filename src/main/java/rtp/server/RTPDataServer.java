@@ -101,7 +101,11 @@ public class RTPDataServer extends HeaderFormat implements RTPHeader{
 
 	@Override
 	public void setAllFromHeader() throws RTPHeaderException {
-		this.genericReadAllFromHeader();
+		try {
+			this.genericReadAllFromHeader();
+		} catch (Exception e){
+			throw new RTPHeaderException(e);
+		}
 	}
 
 	public DatagramPacket getPacket() {

@@ -91,26 +91,28 @@ public abstract class HeaderFormat {
 	public abstract void setPacket(DatagramPacket packet) throws RTPHeaderException;
 	
 	protected void genericReadAllFromHeader() throws RTPHeaderException {
+		try {
+			if (this.header != null && this.header.length >= RTPHeader.headerminlength) {
 
-		if (this.header != null && this.header.length >= RTPHeader.headerminlength) {
+				this.readVersion();
+				this.readPadding();
+				this.readExtention();
+				this.readCSRCCount();
 
-			this.readVersion();
-			this.readPadding();
-			this.readExtention();
-			this.readCSRCCount();
-			
-			
-			
-			this.readMarker();
-			this.readPayloadType();
-			this.readSequenceNumber();
-			this.readTimestamp();
-			this.readSynchronizzationSrc();
-			this.readContributingSrc();
-			this.readExtensions();
-			RTPServerLog.log("Set new header All fields for "+ this.getClass().getName()+".");
-		} else {
-			throw new RTPHeaderException("Header null or not right length");
+
+				this.readMarker();
+				this.readPayloadType();
+				this.readSequenceNumber();
+				this.readTimestamp();
+				this.readSynchronizzationSrc();
+				this.readContributingSrc();
+				this.readExtensions();
+				RTPServerLog.log("Set new header All fields for " + this.getClass().getName() + ".");
+			} else {
+				throw new RTPHeaderException("Header null or not right length");
+			}
+		} catch (Exception e) {
+			throw new RTPHeaderException(e);
 		}
 	}
 	/**

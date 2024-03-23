@@ -91,6 +91,7 @@ public class RTPServerReceiver extends RTPServer implements Runnable{
 			
 		} catch (Exception e){
 			RTPServerLog.log(e.getMessage());
+			this.getDataServer().notify();
 		} finally {
 			RTPServerLog.log("Return to ...");
 		}
