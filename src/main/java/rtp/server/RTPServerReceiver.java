@@ -45,12 +45,14 @@ public class RTPServerReceiver extends RTPServer implements Runnable{
 
 	@Override
 	public void run() {
-		try {
-			RTPServerLog.log("Listen left...");
-			byte[] buffer = new byte[10000];
-			DatagramPacket data = new DatagramPacket(buffer,10000);
 
-			synchronized (this.getDataServer()) {
+		synchronized (this.getDataServer()) {
+			try {
+				RTPServerLog.log("Listen left...");
+				byte[] buffer = new byte[10000];
+				DatagramPacket data = new DatagramPacket(buffer, 10000);
+
+
 				this.receive(data);
 
 
@@ -60,14 +62,14 @@ public class RTPServerReceiver extends RTPServer implements Runnable{
 
 					this.getDataServer().setPacket(data);
 
-					if (this.dataServer.getPacket() != null ) {
+					if (this.dataServer.getPacket() != null) {
 						RTPServerLog.log("\t\t data length:" + this.dataServer.getPacket().getData().length);
 					} else {
 						this.getDataServer().notify();
 						return;
 					}
 
-					if (this.byClient){
+					if (this.byClient) {
 						//this.setDest(new InetSocketAddress(this.dataServer.getPacket().getAddress(),  this.dataServer.getPacket().getPort()));
 					}
 
@@ -75,8 +77,7 @@ public class RTPServerReceiver extends RTPServer implements Runnable{
 					RTPServerLog.log("\t\t Packet in data rtp lx server... start to send");
 					RTPServerLog.log("\t\t Destinat Address is : " + this.getDest().getAddress());
 
-					DatagramPacket hi = new DatagramPacket(this.dataServer.getPacket().getData(),this.dataServer.getPacket().getLength(),this.getDest());
-
+					DatagramPacket hi = new DatagramPacket(this.dataServer.getPacket().getData(), this.dataServer.getPacket().getLength(), this.getDest());
 
 
 					//this.setTmpPacket(hi);
@@ -87,13 +88,14 @@ public class RTPServerReceiver extends RTPServer implements Runnable{
 
 				}
 				this.getDataServer().notify();
+
+
+			} catch(Exception e){
+				RTPServerLog.log(e.getMessage());
+				this.getDataServer().notify();
+			} finally{
+				RTPServerLog.log("Return to ...");
 			}
-			
-		} catch (Exception e){
-			RTPServerLog.log(e.getMessage());
-			this.getDataServer().notify();
-		} finally {
-			RTPServerLog.log("Return to ...");
 		}
 	}
 
