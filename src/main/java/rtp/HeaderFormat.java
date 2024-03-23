@@ -309,14 +309,17 @@ public abstract class HeaderFormat {
 	 */
 	protected void readExtensions() throws RTPHeaderException{
 		if (this.extentionX == 1) {
-			this.extHeaderID = (short)(((short)this.header[(1+RTPHeader.headerminlength+this.cc)] * 256^2)+ (((short)this.header[(RTPHeader.headerminlength+this.cc)])));
+			this.extHeaderID = (short) (((short)this.header[(1+RTPHeader.headerminlength+this.cc)] * 256^2)+ (((short)this.header[(RTPHeader.headerminlength+this.cc)])));
 			RTPServerLog.log("Extension header ID in idx "+(1+RTPHeader.headerminlength+this.cc)+ ","+(RTPHeader.headerminlength+this.cc)+" is " + this.extHeaderID);
 			this.extLength = (short)(((short)this.header[(3+RTPHeader.headerminlength+this.cc)] * 256^2)+ (((short)this.header[(2+RTPHeader.headerminlength+this.cc)])));
 			RTPServerLog.log("Extension Length in idx "+(3+RTPHeader.headerminlength+this.cc)+ ","+(2+RTPHeader.headerminlength + this.cc)+" is " + this.extLength);
 			
-			this.extensions = new ArrayList<Integer>(this.extLength);
+			this.extensions = new ArrayList<Integer>();
+
+
 			for (int c = 0; c < extLength ; c++) {
 				if (this.header != null && this.header.length >= (7+RTPHeader.headerminlength+this.cc+c*4)) {
+					this.extensions.add(-1);
 					this.extensions.set(c,(((int)(this.header[7+RTPHeader.headerminlength+this.cc+c*4]  & 0xFF)) * 256^4) + 
 							(((int)(this.header[6+RTPHeader.headerminlength+this.cc+c*4]  & 0xFF)) * 256^3) + 
 							(((int)(this.header[5+RTPHeader.headerminlength+this.cc+c*4]  & 0xFF)) * 256^2) + 
