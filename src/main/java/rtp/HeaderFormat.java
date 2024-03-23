@@ -309,9 +309,9 @@ public abstract class HeaderFormat {
 	 */
 	protected void readExtensions() throws RTPHeaderException{
 		if (this.extentionX == 1) {
-			this.extHeaderID = (short) (((short)this.header[(1+RTPHeader.headerminlength+this.cc)] * 256^2)+ (((short)this.header[(RTPHeader.headerminlength+this.cc)])));
+			this.extHeaderID = (short) ((this.header[(1+RTPHeader.headerminlength+this.cc)] * 256^2)+ ((this.header[(RTPHeader.headerminlength+this.cc)])));
 			RTPServerLog.log("Extension header ID in idx "+(1+RTPHeader.headerminlength+this.cc)+ ","+(RTPHeader.headerminlength+this.cc)+" is " + this.extHeaderID);
-			this.extLength = (short)(((short)this.header[(3+RTPHeader.headerminlength+this.cc)] * 256^2)+ (((short)this.header[(2+RTPHeader.headerminlength+this.cc)])));
+			this.extLength = (short)((this.header[(3+RTPHeader.headerminlength+this.cc)] * 256^2)+ ((this.header[(2+RTPHeader.headerminlength+this.cc)])));
 			RTPServerLog.log("Extension Length in idx "+(3+RTPHeader.headerminlength+this.cc)+ ","+(2+RTPHeader.headerminlength + this.cc)+" is " + this.extLength);
 			
 			this.extensions = new ArrayList<Integer>();
