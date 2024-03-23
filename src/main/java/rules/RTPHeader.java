@@ -28,6 +28,6 @@ public interface RTPHeader {
 	public int getSyncSrc();
 	public List<Integer> getContribSrc();
 	public List<Integer> getExtensions();
-	public short getExtLength();
-	public short getExtHeaderID();
+	public int getExtLength();
+	public int getExtHeaderID();
 }
