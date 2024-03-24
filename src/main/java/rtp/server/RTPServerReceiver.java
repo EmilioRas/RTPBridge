@@ -60,6 +60,7 @@ public class RTPServerReceiver extends RTPServer implements Runnable{
 				if (data != null) {
 					RTPServerLog.log("\t\t New packets data... ");
 
+					/*
 					this.getDataServer().setPacket(data);
 
 					if (this.dataServer.getPacket() != null) {
@@ -80,7 +81,11 @@ public class RTPServerReceiver extends RTPServer implements Runnable{
 					DatagramPacket hi = new DatagramPacket(this.dataServer.getPacket().getData(), this.dataServer.getPacket().getLength(), this.getDest());
 
 
+					 */
+
 					//this.setTmpPacket(hi);
+					DatagramPacket hi = new DatagramPacket(data.getData(), data.getData().length, this.getDest());
+
 					this.send(hi);
 					RTPServerLog.log("\t\t END");
 				} else {
